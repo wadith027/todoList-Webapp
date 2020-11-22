@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const _ = require('lodash');
 const date = require(__dirname + "/date.js");
 // var items = ['Buy Food','Cook Food','Eat Food'];
 // var workItems = [];
@@ -46,7 +47,7 @@ const List = mongoose.model("List",listSchema);
 app.set('view engine','ejs');
 console.log(date);
 app.get("/:listName",function(req, res){
-    const customListName = req.params.listName;
+    const customListName = _.capitalize(req.params.listName);
     List.findOne({name: customListName},function(err,foundList){
         if(!err){
             if (!foundList){
